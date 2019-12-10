@@ -1,3 +1,11 @@
+{{ define "index.layout" }}
+
+{{ template "navbar" .}}
+{{ template "index.content" .}}
+{{ template "footer" .}}
+
+{{ end }}
+
 {{ define "index.content"}}
 <div>Body of Home</div>
 {{end}}
