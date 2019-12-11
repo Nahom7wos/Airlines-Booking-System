@@ -8,17 +8,20 @@ import (
 
 // connect database - previleges?
 
-// handlefunc, start server, (can't declare := outsite func)
+// handlefunc, start server
 var tmpl = template.Must(template.ParseGlob("../../ui/templates/*"))
 
 func index(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "index.layout", nil)
 }
+func book(w http.ResponseWriter, r *http.Request) {
+	tmpl.ExecuteTemplate(w, "book.layout", nil)
+}
 func main() {
 	fs := http.FileServer(http.Dir("../../ui/assets"))
 	mux := http.NewServeMux()
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
-
 	mux.HandleFunc("/", index)
+	mux.HandleFunc("/book", book)
 	http.ListenAndServe(":8080", mux)
 }
