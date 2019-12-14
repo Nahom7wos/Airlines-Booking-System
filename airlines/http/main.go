@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"html/template"
 	"net/http"
 	// import menu hadler
@@ -18,6 +19,20 @@ func book(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "book.layout", nil)
 }
 func main() {
+
+	//Database conneection
+	dbconn, err := sql.Open("postgres", "")
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer dbconn.Close()
+
+	if err := dbconn.Ping(); err != nil {
+		panic(err)
+	}
+
 	fs := http.FileServer(http.Dir("../../ui/assets"))
 	mux := http.NewServeMux()
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
