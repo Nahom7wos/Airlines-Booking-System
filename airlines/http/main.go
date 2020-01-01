@@ -18,25 +18,17 @@ func index(w http.ResponseWriter, r *http.Request) {
 func book(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "book.layout", nil)
 }
+func checkin(w http.ResponseWriter, r *http.Request) {
+	tmpl.ExecuteTemplate(w, "checkin.layout", nil)
+}
 func main() {
-
-	//Database conneection
-	dbconn, err := sql.Open("postgres", "")
-
-	if err != nil {
-		panic(err)
-	}
-
-	defer dbconn.Close()
-
-	if err := dbconn.Ping(); err != nil {
-		panic(err)
-	}
 
 	fs := http.FileServer(http.Dir("../../ui/assets"))
 	mux := http.NewServeMux()
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
 	mux.HandleFunc("/", index)
 	mux.HandleFunc("/book", book)
+	mux.HandleFunc("/checkin", book)
 	http.ListenAndServe(":8080", mux)
+
 }
