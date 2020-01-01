@@ -1,13 +1,13 @@
 package main
 
 import (
-	"database/sql"
 	"html/template"
 	"net/http"
-	// import menu hadler
-)
 
-// connect database - previleges?
+	// import menu hadler
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+)
 
 // handlefunc, start server
 var tmpl = template.Must(template.ParseGlob("../../ui/templates/*"))
@@ -21,6 +21,15 @@ func book(w http.ResponseWriter, r *http.Request) {
 func checkin(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "checkin.layout", nil)
 }
+//create dbConn
+//pass to repo
+//create a repo
+//pass to service
+
+//pass tmpl and service to
+//adminHandler
+//menuHandler
+
 func main() {
 
 	fs := http.FileServer(http.Dir("../../ui/assets"))
@@ -31,4 +40,5 @@ func main() {
 	mux.HandleFunc("/checkin", book)
 	http.ListenAndServe(":8080", mux)
 
+	//admin paths
 }
