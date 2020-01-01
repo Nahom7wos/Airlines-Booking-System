@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"net/http"
 
-	// import menu hadler
+	// import book hadler
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
