@@ -9,9 +9,9 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
-// handlefunc, start server
 var tmpl = template.Must(template.ParseGlob("../../ui/templates/*"))
 
+// move these handlers to book_handler.go
 func index(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "index.layout", nil)
 }
@@ -21,6 +21,7 @@ func book(w http.ResponseWriter, r *http.Request) {
 func checkin(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "checkin.layout", nil)
 }
+
 //create dbConn
 //pass to repo
 //create a repo
