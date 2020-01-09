@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"github.com/Nahom7wos/Airlines-Booking-System/entity"
+	"github.com/Nahom7wos/Airlines-Booking-System/flight"
 	"html/template"
 	"io"
 	"mime/multipart"
@@ -8,8 +10,6 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
-	"github.com/Nahom7wos/Airlines-Booking-System/entity"
-	"github.com/Nahom7wos/Airlines-Booking-System/flight"
 )
 
 type DestinationHandler struct {
@@ -30,23 +30,25 @@ func (dh *DestinationHandler) Destination(w http.ResponseWriter, r *http.Request
 	}
 	dh.tmpl.ExecuteTemplate(w, "admin.destination.layout", destinations)
 }
+
 // DestinationStore creates new destination in the database
 func (dh *DestinationHandler) DestinationStore(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
-		dstn := &entity.Destination{}
-		dstn.Name := r.FormValue("destinationName")
-		dstn.Price, _ := strconv.ParseUint(r.FormValue("destinationPrice"), 10, 32)
-		dstn.Description := r.FormValue("destinationDescription")
+		dstn := entity.Destination{}
+		price, _ := strconv.ParseUint(r.FormValue("destinationPrice"), 10, 64)
+		dstn.Name = r.FormValue("destinationName")
+		dstn.Price = price
+		dstn.Description = r.FormValue("destinationDescription")
 		mf, fh, err := r.FormFile("destinationImage")
 		if err != nil {
 			panic(err)
 		}
 		defer mf.Close()
 
-		dstn.Image := fh.Filename
+		dstn.Image = fh.Filename
 		writeFile(&mf, fh.Filename)
 
-		_, errs := dh.destinationSrv.StoreCategory(dstn)
+		_, errs := dh.destinationSrv.StoreDestination(dstn)
 
 		if len(errs) > 0 {
 			panic(errs)
