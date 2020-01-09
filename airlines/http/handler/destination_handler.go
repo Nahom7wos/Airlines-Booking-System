@@ -34,10 +34,10 @@ func (dh *DestinationHandler) Destination(w http.ResponseWriter, r *http.Request
 // DestinationStore creates new destination in the database
 func (dh *DestinationHandler) DestinationStore(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
-		dstn := entity.Destination{}
-		price, _ := strconv.ParseUint(r.FormValue("destinationPrice"), 10, 64)
+		dstn := &entity.Destination{}
+		price, _ := strconv.Atoi(r.FormValue("destinationPrice")
 		dstn.Name = r.FormValue("destinationName")
-		dstn.Price = price
+		dstn.Price = unit(price)
 		dstn.Description = r.FormValue("destinationDescription")
 		mf, fh, err := r.FormFile("destinationImage")
 		if err != nil {
