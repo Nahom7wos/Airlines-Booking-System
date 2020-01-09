@@ -1,4 +1,4 @@
-package flght
+package flight
 
 import "github.com/Nahom7wos/Airlines-Booking-System/entity"
 
