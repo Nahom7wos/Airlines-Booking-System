@@ -28,7 +28,7 @@ func (dh *DestinationHandler) Destination(w http.ResponseWriter, r *http.Request
 	if errs != nil {
 		panic(errs)
 	}
-	dh.tmp.ExecuteTemplate(w, "admin.destination.layout", destinations)
+	dh.tmpl.ExecuteTemplate(w, "admin.destination.layout", destinations)
 }
 // DestinationStore creates new destination in the database
 func (dh *DestinationHandler) DestinationStore(w http.ResponseWriter, r *http.Request) {
@@ -56,7 +56,24 @@ func (dh *DestinationHandler) DestinationStore(w http.ResponseWriter, r *http.Re
 
 	} else {
 
-		dh.tmp.ExecuteTemplate(w, "admin.destination.create.layout", nil)
+		dh.tmpl.ExecuteTemplate(w, "admin.destination.create.layout", nil)
 
 	}
+}
+func writeFile(mf *multipart.File, fname string) {
+
+	wd, err := os.Getwd()
+
+	if err != nil {
+		panic(err)
+	}
+
+	path := filepath.Join(wd, "ui", "assets", "img", fname)
+	image, err := os.Create(path)
+
+	if err != nil {
+		panic(err)
+	}
+	defer image.Close()
+	io.Copy(image, *mf)
 }
