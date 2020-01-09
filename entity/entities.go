@@ -15,7 +15,7 @@ type Flight struct {
 type Destination struct {
 	ID          uint
 	Name        string `gorm:"type:varchar(255)"`
-	Price       float32
+	Price       uint
 	Description string
 	Image       string `gorm:"type:varchar(255)"`
 }
