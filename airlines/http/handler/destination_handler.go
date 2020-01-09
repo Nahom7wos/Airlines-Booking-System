@@ -70,7 +70,7 @@ func writeFile(mf *multipart.File, fname string) {
 		panic(err)
 	}
 
-	path := filepath.Join(wd, "ui", "assets", "image", fname)
+	path := filepath.Join(wd, "ui", "assets", "images", fname)
 	image, err := os.Create(path)
 
 	if err != nil {
