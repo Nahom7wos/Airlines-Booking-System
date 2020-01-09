@@ -3,23 +3,31 @@ package main
 import (
 	"html/template"
 	"net/http"
-
 	// import book hadler
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	// "github.com/jinzhu/gorm"
+	// _ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 var tmpl = template.Must(template.ParseGlob("../../ui/templates/*"))
 
-// move these handlers to book_handler.go
-func index(w http.ResponseWriter, r *http.Request) {
-	tmpl.ExecuteTemplate(w, "index.layout", nil)
+rootHandler := handler.NewRootHandler(tmpl)
+
+
+//admin
+func Plane(w http.ResponseWriter, r *http.Request) {
+	tmpl.ExecuteTemplate(w, "admin.plane.layout", nil)
 }
-func book(w http.ResponseWriter, r *http.Request) {
-	tmpl.ExecuteTemplate(w, "book.layout", nil)
+func PlaneCreate(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+
+	}
+	tmpl.ExecuteTemplate(w, "admin.plane.create.layout", nil)
 }
-func checkin(w http.ResponseWriter, r *http.Request) {
-	tmpl.ExecuteTemplate(w, "checkin.layout", nil)
+func Destination(w http.ResponseWriter, r *http.Request) {
+	tmpl.ExecuteTemplate(w, "admin.destination.layout", nil)
+}
+func DestinationCreate(w http.ResponseWriter, r *http.Request) {
+	tmpl.ExecuteTemplate(w, "admin.destination.create.layout", nil)
 }
 
 //create dbConn
@@ -36,10 +44,21 @@ func main() {
 	fs := http.FileServer(http.Dir("../../ui/assets"))
 	mux := http.NewServeMux()
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
-	mux.HandleFunc("/", index)
-	mux.HandleFunc("/book", book)
-	mux.HandleFunc("/checkin", book)
-	http.ListenAndServe(":8080", mux)
+	mux.HandleFunc("/", rootHandler.Index)
+	mux.HandleFunc("/admin", rootHandler.Admin)
+	mux.HandleFunc("/book", rootHandler.Book)
+	mux.HandleFunc("/checkin", rootHandler.Checkin)
+	mux.HandleFunc("/flights", rootHandler.Flights)
+	mux.HandleFunc("/loyalty", rootHandler.Loyalty)
 
 	//admin paths
+	mux.HandleFunc("/admin/flight", admin)
+	mux.HandleFunc("/admin/flight/create", admin)
+	mux.HandleFunc("/admin/destination", Destination)
+	mux.HandleFunc("/admin/destination/create", DestinationCreate)
+	mux.HandleFunc("/admin/plane", Plane)
+	mux.HandleFunc("/admin/plane/create", PlaneCreate)
+
+	http.ListenAndServe(":8080", mux)
+
 }
