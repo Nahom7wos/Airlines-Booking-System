@@ -11,7 +11,7 @@ type DestinationService struct {
 }
 
 // NewDestinationService will create new DestinationService object
-func NewDestinationService(destRepo flight.DestinationRepository) flight.DestiantionService {
+func NewDestinationService(destRepo flight.DestinationRepository) flight.DestinationService {
 	return &DestinationService{destinationRepo: destRepo}
 }
 
