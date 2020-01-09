@@ -35,9 +35,9 @@ func (dh *DestinationHandler) Destination(w http.ResponseWriter, r *http.Request
 func (dh *DestinationHandler) DestinationStore(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		dstn := &entity.Destination{}
-		price, _ := strconv.Atoi(r.FormValue("destinationPrice")
+		price, _ := strconv.Atoi(r.FormValue("destinationPrice"))
 		dstn.Name = r.FormValue("destinationName")
-		dstn.Price = unit(price)
+		dstn.Price = uint(price)
 		dstn.Description = r.FormValue("destinationDescription")
 		mf, fh, err := r.FormFile("destinationImage")
 		if err != nil {
