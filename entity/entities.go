@@ -14,10 +14,10 @@ type Flight struct {
 // Destination details
 type Destination struct {
 	ID          uint
-	Name        string `gorm:"type:varchar(255)"`
-	Price       uint
-	Description string
+	Name        string `gorm:"type:varchar(255);not null"`
 	Image       string `gorm:"type:varchar(255)"`
+	Description string
+	Price       float32
 }
 
 // Plane details with unique names
