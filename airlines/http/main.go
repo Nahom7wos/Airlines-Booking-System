@@ -2,11 +2,12 @@ package main
 
 import (
 	"github.com/Nahom7wos/Airlines-Booking-System/airlines/http/handler"
+	mrepim "github.com/Nahom7wos/Airlines-Booking-System/flight/repository"
+	msrvim "github.com/Nahom7wos/Airlines-Booking-System/flight/service"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"html/template"
 	"net/http"
-	// import book hadler
-	// "github.com/jinzhu/gorm"
-	// _ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 //admin
@@ -19,25 +20,25 @@ import (
 // 	}
 // 	tmpl.ExecuteTemplate(w, "admin.plane.create.layout", nil)
 // }
-// func Destination(w http.ResponseWriter, r *http.Request) {
-// 	tmpl.ExecuteTemplate(w, "admin.destination.layout", nil)
-// }
-// func DestinationCreate(w http.ResponseWriter, r *http.Request) {
-// 	tmpl.ExecuteTemplate(w, "admin.destination.create.layout", nil)
-// }
-
-//create dbConn
-//pass to repo
-//create a repo
-//pass to service
-
-//pass tmpl and service to
-//adminHandler
-//menuHandler
 
 func main() {
 
+	dbconn, err := gorm.Open("postgres", "postgres://postgres:Postgre_1@localhost/airlinesdb?sslmode=disable")
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer dbconn.Close()
+
+	// createTables(dbconn)
+
 	tmpl := template.Must(template.ParseGlob("../../ui/templates/*"))
+
+	destinationRepo := mrepim.NewDestinationGormRepo(dbconn)
+	destinationServ := msrvim.NewDestinationService(destinationRepo)
+
+	destinationHandler := handler.NewDestinationHandler(tmpl, destinationServ)
 	mainHandler := handler.NewMainHandler(tmpl)
 
 	fs := http.FileServer(http.Dir("../../ui/assets"))
@@ -53,8 +54,8 @@ func main() {
 	//admin paths
 	// mux.HandleFunc("/admin/flight", MainHandler.Admin)
 	// mux.HandleFunc("/admin/flight/create", MainHandler.Admin)
-	// mux.HandleFunc("/admin/destination", Destination)
-	// mux.HandleFunc("/admin/destination/create", DestinationCreate)
+	mux.HandleFunc("/admin/destination", destinationHandler.Destination)
+	mux.HandleFunc("/admin/destination/create", destinationHandler.DestinationStore)
 	// mux.HandleFunc("/admin/plane", Plane)
 	// mux.HandleFunc("/admin/plane/create", PlaneCreate)
 
