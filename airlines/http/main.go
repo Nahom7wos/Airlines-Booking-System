@@ -10,11 +10,6 @@ import (
 	"net/http"
 )
 
-var tmpl = template.Must(template.ParseGlob("../../ui/templates/*"))
-
-rootHandler := handler.NewRootHandler(tmpl)
-
-
 //admin
 // func Plane(w http.ResponseWriter, r *http.Request) {
 // 	tmpl.ExecuteTemplate(w, "admin.plane.layout", nil)
@@ -49,12 +44,12 @@ func main() {
 	fs := http.FileServer(http.Dir("../../ui/assets"))
 	mux := http.NewServeMux()
 	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
-	mux.HandleFunc("/", rootHandler.Index)
-	mux.HandleFunc("/admin", rootHandler.Admin)
-	mux.HandleFunc("/book", rootHandler.Book)
-	mux.HandleFunc("/checkin", rootHandler.Checkin)
-	mux.HandleFunc("/flights", rootHandler.Flights)
-	mux.HandleFunc("/loyalty", rootHandler.Loyalty)
+	mux.HandleFunc("/", mainHandler.Index)
+	mux.HandleFunc("/admin", mainHandler.Admin)
+	mux.HandleFunc("/book", mainHandler.Book)
+	mux.HandleFunc("/checkin", mainHandler.Checkin)
+	mux.HandleFunc("/flights", mainHandler.Flights)
+	mux.HandleFunc("/loyalty", mainHandler.Loyalty)
 
 	//admin paths
 	// mux.HandleFunc("/admin/flight", MainHandler.Admin)
