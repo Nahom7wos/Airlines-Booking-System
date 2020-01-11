@@ -38,8 +38,12 @@ func main() {
 	destinationRepo := mrepim.NewDestinationGormRepo(dbconn)
 	destinationServ := msrvim.NewDestinationService(destinationRepo)
 
+	planeRepo := mrepim.NewDestinationGormRepo(dbconn)
+	planeServ := msrvim.NewDestinationService(destinationRepo)
+
+	mainHandler := handler.NewMainHandler(tmpl, destinationServ)
 	destinationHandler := handler.NewDestinationHandler(tmpl, destinationServ)
-	mainHandler := handler.NewMainHandler(tmpl)
+	planeHandler := handler.NewPlaneHandler(tmpl, destinationServ)
 
 	fs := http.FileServer(http.Dir("../../ui/assets"))
 	mux := http.NewServeMux()
@@ -56,8 +60,8 @@ func main() {
 	// mux.HandleFunc("/admin/flight/create", MainHandler.Admin)
 	mux.HandleFunc("/admin/destination", destinationHandler.Destination)
 	mux.HandleFunc("/admin/destination/create", destinationHandler.DestinationStore)
-	// mux.HandleFunc("/admin/plane", Plane)
-	// mux.HandleFunc("/admin/plane/create", PlaneCreate)
+	mux.HandleFunc("/admin/plane", planeHandler.Plane)
+	mux.HandleFunc("/admin/plane/create", planeHandler.PlaneStore)
 
 	http.ListenAndServe(":8080", mux)
 
