@@ -6,22 +6,22 @@
 
 {{ define "admin.destination.create.content"}}
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-    <form>
+    <form method="POST" action="/admin/destination/create" enctype="multipart/form-data">
         <div class="form-group">
-          <label for="exampleInputEmail1">Destination Name</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <label for="destinationNameInput">Destination Name</label>
+          <input type="text" class="form-control" id="destinationNameInput" name="destinationName" placeholder="Enter Destination">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Price</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <label for="destinationPriceInput">Price</label>
+          <input type="number" class="form-control" id="destinationPriceInput" name="destinationPrice" placeholder="Price">
         </div>
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label for="destinationDescriptionInput">Description</label>
+            <textarea class="form-control" id="destinationDescriptionInput" name="destinationDescription" rows="3"></textarea>
           </div>
         <div class="form-group">
-            <label for="destinationImageUploader">Upload Image</label>
-            <input type="file" class="form-control-file" id="destinationImageUploader">
+            <label for="destinationImageUpload">Upload Image</label>
+            <input type="file" class="form-control-file" id="destinationImageUpload" name="destinationImage">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
