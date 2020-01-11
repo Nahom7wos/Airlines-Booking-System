@@ -1,0 +1,40 @@
+{{ define "admin.destination.layout" }}
+{{ template "admin.navbar" . }}
+{{ template "admin.destination.content" . }}
+{{ template "admin.footer" . }}
+{{ end }}
+
+{{ define "admin.destination.content"}}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h2>Destinations</h2>
+        <a class="btn btn-outline-secondary" href="/admin/destination/create" role="button">Add Destination</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Price</th>
+            <th scope="col">Description</th>
+            <th scope="col">Image</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            {{ range . }}
+          <tr>
+            <th scope="row"> {{ .ID }} </th>
+            <td> {{ .Name }} </td>
+            <td> {{ .Price }} </td>
+            <td> {{ .Description }} </td>
+            <td> {{ .Image }} </td>
+            <td> <a href="/admin/destination/update?id={{ .ID }}">Edit</a> </td>
+            <td> <a href="/admin/destination/delete?id={{ .ID }}">Delete</a> </td>
+          </tr>
+          {{ end }}
+          </tbody>
+        </table>
+</main>
+{{ end }}

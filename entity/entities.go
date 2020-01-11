@@ -7,14 +7,14 @@ type Flight struct {
 	ID            uint
 	DepartureDate time.Time
 	Status        string
-	DestinationID []Destination `gorm:"many2one:flight_destination"`
-	PlaneID       []Plane       `gorm:"one2one:flight_plane"`
+	DestinationID Destination 
+	PlaneID       Plane     
 }
 
 // Destination details
 type Destination struct {
 	ID          uint
-	Name        string `gorm:"type:varchar(255);not null"`
+	Name        string `gorm:"type:varchar(255)"`
 	Image       string `gorm:"type:varchar(255)"`
 	Description string
 	Price       float32
@@ -57,9 +57,9 @@ type User struct {
 	Phone        string `gorm:"type:varchar(100);not null; unique"`
 	Password     string `gorm:"type:varchar(255)"`
 	Passport     string
-	CreditCardID []CreditCard
+	CreditCardID CreditCard // One-To-One relationship
 	Roles        []Role   `gorm:"many2many:user_roles"`
-	TicketID     []Ticket `gorm:"one2many:user_tickets"`
+	TicketID     []Ticket // One-To-Many relationship
 }
 
 // Loyalty to be redeemed

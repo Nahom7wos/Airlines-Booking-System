@@ -8,5 +8,28 @@
 {{ end }}
 
 {{ define "book.content" }}
-<h1>Book</h1>
+<div class="container">
+    <div class="mt-5 mb-5">
+        <div class="card text-center">
+            <div class="card-header">
+            Where to?
+            </div>
+            <div class="card-body m-3">
+                <form class="form ml-5 mr-5">
+                    <input class="form-control form-control-lg text-center" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success form-control-lg mt-4 pl-5 pr-5" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="card col-10">
+            <div class="card-body m-4">
+              <h4 class="card-title">Destination name</h4>
+              <p class="card-text">Departure Date <small class="text-success">Price</small></p>
+              <a href="#" class="btn btn-primary">Book Flight</a>
+            </div>
+          </div>
+    </div>
+</div>
 {{ end }}
