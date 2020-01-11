@@ -27,9 +27,11 @@
           <tr>
             <th scope="row"> {{ .ID }} </th>
             <td> {{ .Name }} </td>
-            <td> {{ .Capacity }} </td>
-            <td> <a href="/admin/categories/update?id={{ .ID }}">Edit</a> </td>
-            <td> <a href="/admin/categories/delete?id={{ .ID }}">Delete</a> </td>
+            <td> {{ .Price }} </td>
+            <td> {{ .Description }} </td>
+            <td> {{ .Image }} </td>
+            <td> <a href="/admin/destination/update?id={{ .ID }}">Edit</a> </td>
+            <td> <a href="/admin/destination/delete?id={{ .ID }}">Delete</a> </td>
           </tr>
           {{ end }}
           </tbody>
