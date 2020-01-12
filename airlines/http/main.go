@@ -2,26 +2,24 @@ package main
 
 import (
 	"github.com/Nahom7wos/Airlines-Booking-System/airlines/http/handler"
-	mrepim "github.com/Nahom7wos/Airlines-Booking-System/flight/repository"
-	msrvim "github.com/Nahom7wos/Airlines-Booking-System/flight/service"
+	frepim "github.com/Nahom7wos/Airlines-Booking-System/flight/repository"
+	fsrvim "github.com/Nahom7wos/Airlines-Booking-System/flight/service"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"html/template"
 	"net/http"
 )
 
-//admin
-// func Plane(w http.ResponseWriter, r *http.Request) {
-// 	tmpl.ExecuteTemplate(w, "admin.plane.layout", nil)
-// }
-// func PlaneCreate(w http.ResponseWriter, r *http.Request) {
-// 	if r.Method == "POST" {
-
-// 	}
-// 	tmpl.ExecuteTemplate(w, "admin.plane.create.layout", nil)
-// }
+func createTables(dbconn *gorm.DB) []error {
+	errs := dbconn.CreateTable(&entity.Destination{}, &entity.Plane{}).GetErrors()
+	if errs != nil {
+		return errs
+	}
+	return nil
+}
 
 func main() {
+	//createTables(dbconn)
 
 	dbconn, err := gorm.Open("postgres", "postgres://postgres:Postgre_1@localhost/airlinesdb?sslmode=disable")
 
@@ -31,17 +29,18 @@ func main() {
 
 	defer dbconn.Close()
 
-	// createTables(dbconn)
-
 	tmpl := template.Must(template.ParseGlob("../../ui/templates/*"))
 
-	destinationRepo := mrepim.NewDestinationGormRepo(dbconn)
-	destinationServ := msrvim.NewDestinationService(destinationRepo)
+	flightRepo := frepim.NewFlightGormRepo(dbconn)
+	flightServ := fsrvim.NewFlightService(flightRepo)
+	
+	destinationRepo := frepim.NewDestinationGormRepo(dbconn)
+	destinationServ := fsrvim.NewDestinationService(destinationRepo)
 
-	planeRepo := mrepim.NewDestinationGormRepo(dbconn)
-	planeServ := msrvim.NewDestinationService(destinationRepo)
+	planeRepo := frepim.NewDestinationGormRepo(dbconn)
+	planeServ := fsrvim.NewDestinationService(destinationRepo)
 
-	mainHandler := handler.NewMainHandler(tmpl, destinationServ)
+	mainHandler := handler.NewMainHandler(tmpl, destinationServ, flightServ)
 	destinationHandler := handler.NewDestinationHandler(tmpl, destinationServ)
 	planeHandler := handler.NewPlaneHandler(tmpl, destinationServ)
 
