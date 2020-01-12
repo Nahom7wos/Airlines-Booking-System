@@ -16,6 +16,6 @@ type PlaneRepository interface {
 
 // FlightRepository specifies flight database operations
 type FlightRepository interface {
-	Flighs() ([]entity.Flight, []error)
+	Flights() ([]entity.Flight, []error)
 	StoreFlight(flight *entity.Flight) (*entity.Flight, []error)
 }

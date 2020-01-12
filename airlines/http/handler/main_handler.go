@@ -20,7 +20,7 @@ func NewMainHandler(T *template.Template, dSrv flight.DestinationService, fSrv f
 
 // move these handlers to main_handler.go
 func (mh *MainHandler) Index(w http.ResponseWriter, r *http.Request) {
-	destinations, errs := dh.destinationSrv.Destinations()
+	destinations, errs := mh.destinationSrv.Destinations()
 	if errs != nil {
 		panic(errs)
 	}
