@@ -6,31 +6,31 @@ import "time"
 type Flight struct {
 	ID            uint
 	DepartureDate time.Time
-	Status        bool
-	DestinationID Destination
-	PlaneID       Plane
+	Status        string
+	DestinationID Destination 
+	PlaneID       Plane     
 }
 
 // Destination details
 type Destination struct {
 	ID          uint
-	Name        string `gorm:"type:varchar(255);not null"`
+	Name        string `gorm:"type:varchar(255)"`
 	Image       string `gorm:"type:varchar(255)"`
-	Description string `gorm:"type:varchar(255)"`
+	Description string
 	Price       float32
 }
 
 // Plane details with unique names
 type Plane struct {
 	ID       uint
-	Name     string `gorm:"type:varchar(255);not null;unique"`
-	Capacity uint `gorm:"not null"`
+	Name     string `gorm:"type:varchar(255);unique"`
+	Capacity uint
 }
 
 // Ticket info with Checkin Status
 type Ticket struct {
 	ID       uint
-	Status   bool
+	Status   string
 	FlightID uint
 	UserID   uint
 }
@@ -41,18 +41,11 @@ type Role struct {
 	Name string `gorm:"type:varchar(255)"`
 }
 
-// Login represents registered users
-type Login struct {
-	ID       uint
-	Username string `gorm:"type:varchar(255);not null; unique"`
-	Password string `gorm:"type:varchar(255);not null"`
-}
-
 // CreditCard details
 type CreditCard struct {
 	ID              uint
-	CardNumber      string `gorm:"type:varchar(255);not null; unique"`
-	ExpirationMonth uint 
+	CardNumber      string
+	ExpirationMonth uint
 	ExpirationYear  uint
 }
 
@@ -61,15 +54,17 @@ type User struct {
 	ID           uint
 	FullName     string `gorm:"type:varchar(255);not null"`
 	Email        string `gorm:"type:varchar(255);not null; unique"`
-	Passport     string `gorm:"type:varchar(255);not null; unique"`
-	Registered   bool
+	Phone        string `gorm:"type:varchar(100);not null; unique"`
+	Password     string `gorm:"type:varchar(255)"`
+	Passport     string
 	CreditCardID CreditCard // One-To-One relationship
-	Roles        []Role     `gorm:"many2many:user_roles"`
+	Roles        []Role   `gorm:"many2many:user_roles"`
+	TicketID     []Ticket // One-To-Many relationship
 }
 
 // Loyalty to be redeemed
 type Loyalty struct {
 	ID     uint
-	Status bool
+	Status string
 	UserID uint
 }
