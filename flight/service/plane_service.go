@@ -18,40 +18,13 @@ func NewPlaneService(pRepo flight.PlaneRepository) flight.PlaneService {
 // Planes returns list of planes
 func (pServ *PlaneService) Planes() ([]entity.Plane, []error) {
 
-	plns, errs := pServ.planeRepo.Planes()
+	planes, errs := pServ.planeRepo.Planes()
 
 	if len(errs) > 0 {
 		return nil, errs
 	}
 
-	return plns, nil
-}
-
-// Plane retrieves a plane by its id
-func (pServ *PlaneService) Plane(id uint) (*entity.Plane, []error) {
-	pln, errs := pServ.planeRepo.Plane(id)
-	if len(errs) > 0 {
-		return nil, errs
-	}
-	return pln, errs
-}
-
-// UpdatePlane updates a given plane
-func (pServ *PlaneService) UpdatePlane(plane *entity.Plane) (*entity.Plane, []error) {
-	pln, errs := pServ.planeRepo.UpdatePlane(plane)
-	if len(errs) > 0 {
-		return nil, errs
-	}
-	return pln, errs
-}
-
-// DeletePlane deletes a given plane
-func (pServ *PlaneService) DeletePlane(id uint) (*entity.Plane, []error) {
-	pln, errs := pServ.planeRepo.DeletePlane(id)
-	if len(errs) > 0 {
-		return nil, errs
-	}
-	return pln, errs
+	return planes, nil
 }
 
 // StorePlane persists new plane information

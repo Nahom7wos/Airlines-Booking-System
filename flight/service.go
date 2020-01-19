@@ -5,9 +5,6 @@ import "github.com/Nahom7wos/Airlines-Booking-System/entity"
 // DestinationService specifies flight destination services
 type DestinationService interface {
 	Destinations() ([]entity.Destination, []error)
-	Destination(id uint) (*entity.Destination, []error)
-	UpdateDestination(destination *entity.Destination) (*entity.Destination, []error)
-	DeleteDestination(id uint) (*entity.Destination, []error)
 	StoreDestination(destination *entity.Destination) (*entity.Destination, []error)
 }
 

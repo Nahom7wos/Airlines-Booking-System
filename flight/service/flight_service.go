@@ -18,40 +18,13 @@ func NewFlightService(fRepo flight.FlightRepository) flight.FlightService {
 // Flights returns list of flights
 func (fServ *FlightService) Flights() ([]entity.Flight, []error) {
 
-	flts, errs := fServ.flightRepo.Flights()
+	flights, errs := fServ.flightRepo.Flights()
 
 	if len(errs) > 0 {
 		return nil, errs
 	}
 
-	return flts, nil
-}
-
-// Flight retrieves a flight by its id
-func (fServ *FlightService) Flight(id uint) (*entity.Flight, []error) {
-	flt, errs := fServ.flightRepo.Flight(id)
-	if len(errs) > 0 {
-		return nil, errs
-	}
-	return flt, errs
-}
-
-// UpdateFlight updates a given flight
-func (fServ *FlightService) UpdateFlight(flight *entity.Flight) (*entity.Flight, []error) {
-	flt, errs := fServ.flightRepo.UpdateFlight(flight)
-	if len(errs) > 0 {
-		return nil, errs
-	}
-	return flt, errs
-}
-
-// DeleteFlight deletes a given flight
-func (fServ *FlightService) DeleteFlight(id uint) (*entity.Flight, []error) {
-	flt, errs := fServ.flightRepo.DeleteFlight(id)
-	if len(errs) > 0 {
-		return nil, errs
-	}
-	return flt, errs
+	return flights, nil
 }
 
 // StoreFlight persists new flight information

@@ -10,7 +10,7 @@
     <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h2>Planes</h2>
-        <a class="btn btn-outline-secondary" href="/admin/plane/create" role="button">Add Plane</a>
+        <a class="btn btn-outline-secondary" href="/admin/destination/create" role="button">Add Plane</a>
     </div>
     <table class="table table-striped">
         <thead>
@@ -28,8 +28,8 @@
             <th scope="row"> {{ .ID }} </th>
             <td> {{ .Name }} </td>
             <td> {{ .Capacity }} </td>
-            <td> <a href="/admin/plane/update?id={{ .ID }}">Edit</a> </td>
-            <td> <a href="/admin/plane/delete?id={{ .ID }}">Delete</a> </td>
+            <td> <a href="/admin/categories/update?id={{ .ID }}">Edit</a> </td>
+            <td> <a href="/admin/categories/delete?id={{ .ID }}">Delete</a> </td>
           </tr>
           {{ end }}
           </tbody>

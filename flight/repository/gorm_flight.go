@@ -17,44 +17,9 @@ func NewFlightGormRepo(db *gorm.DB) flight.FlightRepository {
 }
 
 // Flights returns all flights stored in the database
-func (fRepo *FlightGormRepo) Flights() ([]entity.Flight, []error) {
-	flts := []entity.Flight{}
-	errs := fRepo.conn.Find(&flts).GetErrors()
-	if len(errs) > 0 {
-		return nil, errs
-	}
-	return flts, errs
-}
-
-// Flight retrieves a flight by its id from the database
-func (fRepo *FlightGormRepo) Flight(id uint) (*entity.Flight, []error) {
-	flt := entity.Flight{}
-	errs := fRepo.conn.First(&flt, id).GetErrors()
-	if len(errs) > 0 {
-		return nil, errs
-	}
-	return &flt, errs
-}
-
-// UpdateFlight updates a given flight in the database
-func (fRepo *FlightGormRepo) UpdateFlight(flight *entity.Flight) (*entity.Flight, []error) {
-	flt := flight
-	errs := fRepo.conn.Save(flt).GetErrors()
-	if len(errs) > 0 {
-		return nil, errs
-	}
-	return flt, errs
-}
-
-// DeleteFlight deletes a given flight from the database
-func (fRepo *FlightGormRepo) DeleteFlight(id uint) (*entity.Flight, []error) {
-	flt, errs := fRepo.Flight(id)
-
-	if len(errs) > 0 {
-		return nil, errs
-	}
-
-	errs = fRepo.conn.Delete(flt, id).GetErrors()
+func (pRepo *FlightGormRepo) Flights() ([]entity.Flight, []error) {
+	flt := []entity.Flight{}
+	errs := pRepo.conn.Find(&flt).GetErrors()
 	if len(errs) > 0 {
 		return nil, errs
 	}
@@ -62,9 +27,9 @@ func (fRepo *FlightGormRepo) DeleteFlight(id uint) (*entity.Flight, []error) {
 }
 
 // StoreFlight stores a given flight in the database
-func (fRepo *FlightGormRepo) StoreFlight(flight *entity.Flight) (*entity.Flight, []error) {
+func (pRepo *FlightGormRepo) StoreFlight(flight *entity.Flight) (*entity.Flight, []error) {
 	flt := flight
-	errs := fRepo.conn.Create(flt).GetErrors()
+	errs := pRepo.conn.Create(flt).GetErrors()
 	if len(errs) > 0 {
 		return nil, errs
 	}
