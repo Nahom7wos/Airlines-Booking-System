@@ -36,15 +36,19 @@ func (mh *MainHandler) Book(w http.ResponseWriter, r *http.Request) {
 	}
 	mh.tmpl.ExecuteTemplate(w, "book.layout", flights)
 }
-func (rh *MainHandler) Checkin(w http.ResponseWriter, r *http.Request) {
-	rh.tmpl.ExecuteTemplate(w, "checkin.layout", nil)
+func (mh *MainHandler) Checkin(w http.ResponseWriter, r *http.Request) {
+	mh.tmpl.ExecuteTemplate(w, "checkin.layout", nil)
 }
-func (rh *MainHandler) Flights(w http.ResponseWriter, r *http.Request) {
+func (mh *MainHandler) Flights(w http.ResponseWriter, r *http.Request) {
+	flights, errs := mh.flightSrv.Flights()
+	if errs != nil {
+		panic(errs)
+	}
 	//check the flight on ticket
 	//get flight by id
-	rh.tmpl.ExecuteTemplate(w, "flights.layout", nil)
+	mh.tmpl.ExecuteTemplate(w, "flights.layout", flights)
 }
-func (rh *MainHandler) Loyalty(w http.ResponseWriter, r *http.Request) {
+func (mh *MainHandler) Loyalty(w http.ResponseWriter, r *http.Request) {
 	// get loyalty by user
-	rh.tmpl.ExecuteTemplate(w, "loyalty.layout", nil)
+	mh.tmpl.ExecuteTemplate(w, "loyalty.layout", nil)
 }

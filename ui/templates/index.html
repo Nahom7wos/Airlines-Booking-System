@@ -46,54 +46,16 @@
         </div>   
         <div class="row">
             <div class="card-columns">
+                {{ range . }}
                 <div class="card">
-                    <img class="card-img-top" src="/assets/images/Caribbean.jpg" alt="Card image cap">
-                    <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <a href="#" class="card-link">Card link</a>
+                    <img class="card-img-top" src="/assets/images/{{ .Image }}" alt="Card image cap">
+                    <div class="card-body p-5">
+                    <h5 class="card-title">{{ .Name }}<small class="text-success">   ${{ .Price }}</small></h5>
+                    <p class="card-text">{{ .Description }}</p>
+                    <a href="#" class="card-link">Check Flight</a>
                     </div>
                 </div>
-                <div class="card">
-                    <img class="card-img-top" src="/assets/images/Caribbean.jpg" alt="Card image cap">
-                    <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="/assets/images/Caribbean.jpg" alt="Card image cap">
-                    <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-link"><small class="text-muted">See more</small></p>
-                    </div>
-                </div>
-                <div class="card">
-                        <img class="card-img-top" src="/assets/images/Caribbean.jpg" alt="Card image cap">
-                        <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="/assets/images/Caribbean.jpg" alt="Card image cap">
-                    <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="/assets/images/Caribbean.jpg" alt="Card image cap">
-                    <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-link"><small class="text-muted">See more</small></p>
-                    </div>
-                </div>
+                {{ end }}
             </div>
         </div>
     </div>

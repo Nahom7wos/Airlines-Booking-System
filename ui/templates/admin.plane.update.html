@@ -1,0 +1,27 @@
+{{ define "admin.plane.create.layout" }}
+{{ template "admin.navbar" . }}
+{{ template "admin.plane.create.content" . }}
+{{ template "admin.footer" . }}
+{{ end }}
+
+{{ define "admin.plane.create.content"}}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>Add Plane</h2>
+  </div>
+  <div class="container">
+    <form method="POST" action="/admin/plane/create" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Plane Name</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">Plane name must be unique.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Capacity</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
+</main>
+{{ end }}

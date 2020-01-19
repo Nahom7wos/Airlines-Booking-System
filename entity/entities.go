@@ -5,8 +5,8 @@ import "time"
 // Flight includes destination and plane
 type Flight struct {
 	ID            uint
-	DepartureDate time.Time
-	Status        bool
+	DepartureDate time.Time `gorm:"not null"`
+	Status        bool      `gorm:"not null"`
 	DestinationID Destination
 	PlaneID       Plane
 }
@@ -17,20 +17,22 @@ type Destination struct {
 	Name        string `gorm:"type:varchar(255);not null"`
 	Image       string `gorm:"type:varchar(255)"`
 	Description string `gorm:"type:varchar(255)"`
-	Price       float32
+	Price       uint   `gorm:"not null"`
 }
 
 // Plane details with unique names
 type Plane struct {
 	ID       uint
 	Name     string `gorm:"type:varchar(255);not null;unique"`
-	Capacity uint `gorm:"not null"`
+	Capacity uint   `gorm:"not null"`
+	Status   bool   `gorm:"not null"`
 }
 
 // Ticket info with Checkin Status
 type Ticket struct {
 	ID       uint
-	Status   bool
+	UUID     string `gorm:"type:varchar(255);not null"`
+	Status   bool   `gorm:"not null"`
 	FlightID uint
 	UserID   uint
 }
@@ -52,17 +54,17 @@ type Login struct {
 type CreditCard struct {
 	ID              uint
 	CardNumber      string `gorm:"type:varchar(255);not null; unique"`
-	ExpirationMonth uint 
+	ExpirationMonth uint
 	ExpirationYear  uint
 }
 
 // User info
 type User struct {
 	ID           uint
-	FullName     string `gorm:"type:varchar(255);not null"`
-	Email        string `gorm:"type:varchar(255);not null; unique"`
-	Passport     string `gorm:"type:varchar(255);not null; unique"`
-	Registered   bool
+	FullName     string     `gorm:"type:varchar(255);not null"`
+	Email        string     `gorm:"type:varchar(255);not null; unique"`
+	Passport     string     `gorm:"type:varchar(255);not null; unique"`
+	Registered   bool       `gorm:"not null"`
 	CreditCardID CreditCard // One-To-One relationship
 	Roles        []Role     `gorm:"many2many:user_roles"`
 }
@@ -70,6 +72,6 @@ type User struct {
 // Loyalty to be redeemed
 type Loyalty struct {
 	ID     uint
-	Status bool
+	Status bool `gorm:"not null"`
 	UserID uint
 }
