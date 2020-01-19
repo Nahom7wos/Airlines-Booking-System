@@ -1,9 +1,9 @@
-package book
+package payment
 
 import "github.com/Nahom7wos/Airlines-Booking-System/entity"
 
-// TicketService specifies flight ticket services
-type TicketService interface {
+// TicketRepository specifies flight ticket database operations
+type TicketRepository interface {
 	Tickets() ([]entity.Ticket, []error)
 	Ticket(id uint) (*entity.Ticket, []error)
 	UpdateTicket(menu *entity.Ticket) (*entity.Ticket, []error)

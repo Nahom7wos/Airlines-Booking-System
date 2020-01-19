@@ -1,6 +1,4 @@
-package book
-
-import "github.com/Nahom7wos/Airlines-Booking-System/entity"
+package ticket
 
 // TicketService specifies flight ticket services
 type TicketService interface {
