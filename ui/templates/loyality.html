@@ -11,11 +11,16 @@
     <div class="row justify-content-center">
         <div class="card col-10">
             <div class="card-body m-4">
-              <h4 class="card-title">Destination name</h4>
-              <p class="card-text">Departure Date <small class="text-success">Price</small></p>
-              <a href="#" class="btn btn-primary">Redeem</a>
+              <h4 class="card-title">Once you book 3 tickets, you can redeem!</h4>
+              <p class="card-text">Number of tickets booked: <small class="text-success">Number</small></p>
             </div>
           </div>
+          {{if .Loyalty.Status}} 
+          
+              <a href="#" class="btn btn-primary">Redeem</a>
+          {{ else }}
+          <!-- off cards -->
+          {{ end }}
     </div>
 </div>
 {{ end }}

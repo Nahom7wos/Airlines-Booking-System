@@ -1,0 +1,43 @@
+    
+{{ define "signup.layout" }}
+
+{{ template "navbar" . }}
+{{ template "signup.content" . }}
+{{ template "footer" . }}
+
+{{ end }}
+
+{{ define "signup.content" }}
+<div class="container">
+    <form method="POST" action="/login">
+        
+        <input type="hidden" name="_csrf" value="{{ .CSRF }}" />
+        
+        <div class="card text-center m-4">
+            <div class="card-header">
+                Login
+            </div>
+            <div class="card-body m-3">
+                {{with .VErrors.Get "generic" }}
+                <label class="text-danger">{{ . }}</label>
+                {{end}}
+            </div>
+            <div class="card-body m-3">
+                <div class="card-body m-3">
+                    <label for="usernameInput">Username</label>
+                    <input type="text" class="form-control" id="usernameInput" name="username" placeholder="Enter Username" value='{{ .Values.Get "username" }}' required>
+                </div>
+                <div class="card-body m-3">
+                    <label for="passwordInput">Password</label>
+                    <input type="password" class="form-control" id="passwordInput" placeholder="Enter Password" name="password" required>
+                       
+                </div>
+                <div class="card-body m-3 text-center">
+                    <button class="btn btn-outline-success form-control-lg pl-5 pr-5" type="submit">Log In</button>
+                </div>
+            </div>
+                
+        </div>
+    </form>
+</div>
+{{ end }}

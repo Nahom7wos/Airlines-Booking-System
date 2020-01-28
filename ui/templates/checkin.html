@@ -14,16 +14,16 @@
         Check In
         </div>
         <div class="card-body m-3">
-            <form class="form ml-5 mr-5">
+            <form class="form ml-5 mr-5"  method="POST" action="/checkin" enctype="multipart/form-data">
                 <div class="row">
                 <div class="col">
-                  <input type="text" class="form-control form-control-lg" placeholder="First name">
+                  <input type="text" class="form-control" placeholder="Full Name" name="fullName">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control form-control-lg" placeholder="Last name">
+                  <input type="text" class="form-control" placeholder="Passport Number" name="passort">
                 </div>
               </div>
-                <button class="btn btn-outline-success form-control-lg mt-4 pl-5 pr-5" type="submit">Check In</button>
+                <button class="btn btn-outline-success mt-4 pl-5 pr-5" type="submit">Check In</button>
             </form>
         </div>
     </div>

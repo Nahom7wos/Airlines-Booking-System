@@ -18,8 +18,43 @@ func NewPlaneGormRepo(db *gorm.DB) flight.PlaneRepository {
 
 // Planes returns all planes stored in the database
 func (pRepo *PlaneGormRepo) Planes() ([]entity.Plane, []error) {
-	pln := []entity.Plane{}
-	errs := pRepo.conn.Find(&pln).GetErrors()
+	plns := []entity.Plane{}
+	errs := pRepo.conn.Find(&plns).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return plns, errs
+}
+
+// Plane retrieves a plane by its id from the database
+func (pRepo *PlaneGormRepo) Plane(id uint) (*entity.Plane, []error) {
+	pln := entity.Plane{}
+	errs := pRepo.conn.First(&pln, id).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return &pln, errs
+}
+
+// UpdatePlane updates a given plane in the database
+func (pRepo *PlaneGormRepo) UpdatePlane(plane *entity.Plane) (*entity.Plane, []error) {
+	pln := plane
+	errs := pRepo.conn.Save(pln).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return pln, errs
+}
+
+// DeletePlane deletes a given plane from the database
+func (pRepo *PlaneGormRepo) DeletePlane(id uint) (*entity.Plane, []error) {
+	pln, errs := pRepo.Plane(id)
+
+	if len(errs) > 0 {
+		return nil, errs
+	}
+
+	errs = pRepo.conn.Delete(pln, id).GetErrors()
 	if len(errs) > 0 {
 		return nil, errs
 	}

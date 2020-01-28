@@ -1,0 +1,49 @@
+{{ define "admin.plane.update.layout" }}
+{{ template "admin.navbar" . }}
+{{ template "admin.plane.update.content" . }}
+{{ template "admin.footer" . }}
+{{ end }}
+
+{{ define "admin.plane.update.content"}}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>Add Plane</h2>
+  </div>
+  <div class="container">
+    <form method="POST" action="/admin/plane/update" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{{ Plane.ID }}" />
+        <div class="form-group">
+          <label for="planeNameInput">Plane Name</label>
+          <input type="text" autocapitalize="characters" class="form-control" id="planeNameInput" aria-describedby="planeHelp" name="planeName" placeholder="Change name" value="{{ if Plane.Name }} {{ Plane.Name }} {{ end }}>
+          <small id="planeHelp" class="form-text text-muted">Plane name must be unique.</small>
+        </div>
+        <div class="form-group">
+          <label for="planeCapacityInput">Capacity</label>
+          <input type="number" class="form-control" id="planeCapacityInput" name="planeCapacity" placeholder="Change capacity" value="{{ if Plane.Capacity }} {{ Plane.Capacity }} {{ end }}">
+        </div>
+        <div class="form-group">
+          {{ if Plane.Status}}
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="planeStatus" id="planeStatusInput1" value="true" checked>
+            <label class="form-check-label" for="planeStatusInput1">Plane Active</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="planeStatus" id="planeStatusInput2" value="false">
+            <label class="form-check-label" for="planeStatusInput2">Plane Inactive</label>
+          </div>
+          {{ else }}
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="planeStatus" id="planeStatusInput1" value="true">
+            <label class="form-check-label" for="planeStatusInput1">Plane Active</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="planeStatus" id="planeStatusInput2" value="false" checked>
+            <label class="form-check-label" for="planeStatusInput2">Plane Inactive</label>
+          </div>
+          {{ end }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
+</main>
+{{ end }}

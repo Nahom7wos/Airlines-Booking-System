@@ -9,27 +9,41 @@
 
 {{ define "book.content" }}
 <div class="container">
-    <div class="mt-5 mb-5">
-        <div class="card text-center">
+    <form method="POST" action="/book" enctype="multipart/form-data">
+        <div class="card text-center m-4">
             <div class="card-header">
-            Where to?
+                Where to?
             </div>
             <div class="card-body m-3">
-                <form class="form ml-5 mr-5">
-                    <input class="form-control form-control-lg text-center" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success form-control-lg mt-4 pl-5 pr-5" type="submit">Search</button>
-                </form>
+                <select class="custom-select" id="flightDestinationInput" name="flightDestination">
+                <option selected>Select Destination</option>
+                {{ range . }}
+                <option value='{{ .ID }}'>{{ .Name }} | Departing on {{ .DepartureDate}} | ${{ .Price}}</option>
+                {{ end }}
+                </select>
             </div>
         </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="card col-10">
-            <div class="card-body m-4">
-              <h4 class="card-title">Destination name</h4>
-              <p class="card-text">Departure Date <small class="text-success">Price</small></p>
-              <a href="#" class="btn btn-primary">Book Flight</a>
+     
+        <div class="card m-4">
+            <div class="card-header text-center">
+                Passenger Info
             </div>
-          </div>
-    </div>
+            <div class="card-body m-3">
+                <label for="fullNameInput">Full Name</label>
+                <input type="text" class="form-control" id="fullNameInput" name="fullName" placeholder="Enter Full Name">
+            </div>
+            <div class="card-body m-3">
+                <label for="emailInput">Email Address</label>
+                <input type="email" class="form-control" id="emailInput" name="email" placeholder="Enter Email">
+            </div>
+            <div class="card-body m-3">
+                <label for="passportInput">Passport Number</label>
+                <input type="text" class="form-control" id="passportInput" name="passport" placeholder="Enter Passport Number">
+            </div>
+            <div class="card-body m-3 text-center">
+                <button class="btn btn-outline-success form-control-lg pl-5 pr-5" type="submit">Book Now</button>
+            </div>
+        </div>
+    </form>
 </div>
 {{ end }}

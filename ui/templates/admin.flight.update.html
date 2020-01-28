@@ -1,0 +1,63 @@
+{{ define "admin.flight.update.layout" }}
+{{ template "admin.navbar" . }}
+{{ template "admin.flight.update.content" . }}
+{{ template "admin.footer" . }}
+{{ end }}
+
+{{ define "admin.flight.update.content"}}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>Edit Flight</h2>
+  </div>
+  <div class="container">
+    <form method="POST" action="/admin/flight/update" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="{{ .Flight.ID }}" />
+        <div class="form-group">
+          <label for="flightDestinationInput">Destination</label>
+          <select class="custom-select" id="flightDestinationInput" name="flightDestination">
+            <option selected value="{{ if .DestinationID }} {{ .DestinationID }} {{ end }}">Change Destination</option>
+            {{ range .Destination }}
+            <option value="{{ .ID }}"> {{ .Name }}</option>
+            {{ end }}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="flightPlaneInput">Plane</label>
+          <select class="custom-select" id="flightPlaneInput" name="flightPlane">
+            <option selected value="{{ if .PlaneID }} {{ .PlaneID }} {{ end }}">Change Plane</option>
+            {{ range .Plane }}
+              <option value="{{ .ID }}"> {{ .Name }}</option>
+            {{ end }}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="flightDepartureInput">Departure Date</label>
+          <input type="text" class="form-control" id="flightDepartureInput" name="flightDeparture" placeholder="YYYY-MM-DD" value="{{ if .DepartureDate }} {{ .DepartureDate }} {{ end }}">
+        </div>
+        <div class="form-group">
+            {{ if .Flight.Status }} 
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="flightStatus" id="flightStatusInput1" value="true" checked>
+                <label class="form-check-label" for="flightStatusInput1">Flight Active</label>
+                </div>
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="flightStatus" id="flightStatusInput2" value="false">
+                <label class="form-check-label" for="flightStatusInput2">Flight Inactive</label>
+                </div> 
+            {{ else }}
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="flightStatus" id="flightStatusInput1" value="true">
+                    <label class="form-check-label" for="flightStatusInput1">Flight Active</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="flightStatus" id="flightStatusInput2" value="false" checked>
+                    <label class="form-check-label" for="flightStatusInput2">Flight Inactive</label>
+                </div> 
+            {{ end }}
+          
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </div>
+</main>
+{{ end }}

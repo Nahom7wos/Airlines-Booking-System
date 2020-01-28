@@ -1,0 +1,52 @@
+    
+{{ define "myflight.update.layout" }}
+
+{{ template "navbar" . }}
+{{ template "myflight.update.content" . }}
+{{ template "footer" . }}
+
+{{ end }}
+
+{{ define "myflight.update.content" }}
+<div class="container">
+    <form method="POST" action="/myflight/update" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{{ .Ticket.ID }}" />
+        <input type="hidden" name="usrId" value="{{ .User.ID }}" />
+
+        <div class="card text-center m-4">
+            <div class="card-header">
+                Where to?
+            </div>
+            <div class="card-body m-3">
+                <select class="custom-select" id="flightDestinationInput" name="flightDestination">
+                <option selected value=".Ticket.FlightID">Change Destination</option>
+                {{ range .FlightDestination }}
+                <option value='{{ .ID }}'>{{ .Name }} | Departing on {{ .DepartureDate}} | ${{ .Price}}</option>
+                {{ end }}
+                </select>
+            </div>
+        </div>
+     
+        <div class="card m-4">
+            <div class="card-header text-center">
+                Change Passenger Info
+            </div>
+            <div class="card-body m-3">
+                <label for="fullNameInput">Full Name</label>
+                <input type="text" class="form-control" id="fullNameInput" name="fullName" placeholder="Change Full Name"value="{{ if .User.FullName }} {{ .User.FullName }} {{ end }}">
+            </div>
+            <div class="card-body m-3">
+                <label for="emailInput">Email Address</label>
+                <input type="email" class="form-control" id="emailInput" name="email" placeholder="Change Email" value="{{ if .User.Email }} {{ .User.Email }} {{ end }}">
+            </div>
+            <div class="card-body m-3">
+                <label for="passportInput">Passport Number</label>
+                <input type="text" class="form-control" id="passportInput" name="passport" placeholder="Change Passport Number" value="{{ if .User.Passport }} {{ .User.Passport }} {{ end }}">
+            </div>
+            <div class="card-body m-3 text-center">
+                <button class="btn btn-outline-success form-control-lg pl-5 pr-5" type="submit">Change Now</button>
+            </div>
+        </div>
+    </form>
+</div>
+{{ end }}

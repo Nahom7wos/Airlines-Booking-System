@@ -12,13 +12,23 @@
   <div class="container">
     <form method="POST" action="/admin/plane/create" enctype="multipart/form-data">
         <div class="form-group">
-          <label for="exampleInputEmail1">Plane Name</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">Plane name must be unique.</small>
+          <label for="planeNameInput">Plane Name</label>
+          <input type="text" autocapitalize="characters" class="form-control" id="planeNameInput" aria-describedby="planeHelp" name="planeName" placeholder="Enter name">
+          <small id="planeHelp" class="form-text text-muted">Plane name must be unique.</small>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Capacity</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <label for="planeCapacityInput">Capacity</label>
+          <input type="number" class="form-control" id="planeCapacityInput" name="planeCapacity" placeholder="Enter capacity">
+        </div>
+        <div class="form-group">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="planeStatus" id="planeStatusInput1" value="true" checked>
+            <label class="form-check-label" for="planeStatusInput1">Plane Active</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="planeStatus" id="planeStatusInput2" value="false">
+            <label class="form-check-label" for="planeStatusInput2">Plane Inactive</label>
+          </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>

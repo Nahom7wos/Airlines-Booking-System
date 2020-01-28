@@ -18,13 +18,40 @@ func NewDestinationService(destRepo flight.DestinationRepository) flight.Destina
 // Destinations returns list of destinations
 func (dServ *DestinationService) Destinations() ([]entity.Destination, []error) {
 
-	destinations, errs := dServ.destinationRepo.Destinations()
+	dstns, errs := dServ.destinationRepo.Destinations()
 
 	if len(errs) > 0 {
 		return nil, errs
 	}
 
-	return destinations, nil
+	return dstns, nil
+}
+
+// Destination retrieves a destination by its id
+func (dServ *DestinationService) Destination(id uint) (*entity.Destination, []error) {
+	dstn, errs := dServ.destinationRepo.Destination(id)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return dstn, errs
+}
+
+// UpdateDestination updates a given destination
+func (dServ *DestinationService) UpdateDestination(destination *entity.Destination) (*entity.Destination, []error) {
+	dstn, errs := dServ.destinationRepo.UpdateDestination(destination)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return dstn, errs
+}
+
+// DeleteDestination deletes a given destination
+func (dServ *DestinationService) DeleteDestination(id uint) (*entity.Destination, []error) {
+	dstn, errs := dServ.destinationRepo.DeleteDestination(id)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return dstn, errs
 }
 
 // StoreDestination persists new destination information
